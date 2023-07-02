@@ -6,7 +6,7 @@ const options = Array.from(document.getElementsByClassName("option-text"));
 console.log(options)
 
 let currentQuestion = {};
-let acceptingAnswers = true;
+let acceptingAnswers = false;
 let score = 0;
 let questionCounter = 0;
 let availableQuestions = [];
@@ -51,11 +51,16 @@ function startGame(){
 };
 
 function generateNewQuestion(){
+    if (availableQuestions.length == 0 || questionCounter >= MAX_QUESTIONS)
+    {
+        // moves the user to the end page once there are no more questions in the bank left
+        return window.location.assign("/endpage.html");
+    }
     questionCounter++;
     randomQuestionIndex = Math.floor(Math.random() * availableQuestions.length);
     console.log("The index is " + randomQuestionIndex);
     chosenQuestion = availableQuestions[randomQuestionIndex];
-    console.log("The question " + chosenQuestion.question)
+    console.log(chosenQuestion.question)
     question.innerText = chosenQuestion.question
     console.log(question.innerText)
     
@@ -68,5 +73,22 @@ function generateNewQuestion(){
         option.innerText = chosenQuestion['option' + number];
 
     })
+    // removes seen questions from random selection
+    availableQuestions.splice(randomQuestionIndex,1)
+    console.log("The length" + availableQuestions.length);
+    acceptingAnswers = true;
+
 }
+
+options.forEach(option => {
+    option.addEventListener("click", selectedAnswer => {
+        if (!acceptingAnswers) return;
+        
+        acceptingAnswers = false;
+        const selectedScript = selectedAnswer.target;
+        const finalSelectedAnswer = selectedScript.dataset['number']
+        console.log(finalSelectedAnswer)
+        generateNewQuestion();
+    })
+})
 startGame();
