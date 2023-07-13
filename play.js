@@ -5,7 +5,7 @@ console.log(question)
 const options = Array.from(document.getElementsByClassName("option-text"));
 console.log(options)
 
-let currentQuestion = {};
+let chosenQuestion = {};
 let acceptingAnswers = false;
 let score = 0;
 let questionCounter = 0;
@@ -85,10 +85,26 @@ options.forEach(option => {
         if (!acceptingAnswers) return;
         
         acceptingAnswers = false;
-        const selectedScript = selectedAnswer.target;
+        const selectedScript = selectedAnswer.target; // the answer that the user selected
         const finalSelectedAnswer = selectedScript.dataset['number']
+        console.log(chosenQuestion.answer) // the actual answer of the question
         console.log(finalSelectedAnswer)
+
+        const classToApply = "incorrect"
+        
+
+        if (finalSelectedAnswer == chosenQuestion.answer)
+        {
+            classToApply = "correct";
+        }
+        console.log(selectedScript.parentElement);
+        // applies the correct container to the specific right answer
+        selectedScript.parentElement.classList.add(classToApply);
+        // selectedScript.parentElement.classList.remove(classToApply);
+
         generateNewQuestion();
+    
+        
     })
 })
 startGame();
