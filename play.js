@@ -91,17 +91,23 @@ options.forEach(option => {
         console.log(finalSelectedAnswer)
 
         const classToApply = "incorrect"
-        
-
+        const rightAnswer = "correct";
+        const correctAnswer = chosenQuestion.answer
         if (finalSelectedAnswer == chosenQuestion.answer)
         {
             classToApply = "correct";
         }
-        console.log(selectedScript.parentElement);
+        console.log("This is" + selectedScript.parentElement);
         // applies the correct container to the specific right answer
         selectedScript.parentElement.classList.add(classToApply);
-        // selectedScript.parentElement.classList.remove(classToApply);
-
+        correctAnswer.classList.add(rightAnswer);
+        // shows if user's answer is correct for 1000 miliseconds then proceeds to next question
+        setTimeout(() => {
+            selectedScript.parentElement.classList.remove(classToApply);
+            correctAnswer.classList.remove(rightAnswer)
+            generateNewQuestion();
+        }, 1000)
+        
         generateNewQuestion();
     
         
