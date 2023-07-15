@@ -1,8 +1,8 @@
-const question = document.getElementById("question");
+question = document.getElementById("question");
 console.log(question)
 
 // splits each selective answer in an array, example = ["17", "11", "19", "21"]
-const options = Array.from(document.getElementsByClassName("option-text"));
+options = Array.from(document.getElementsByClassName("option-text"));
 console.log(options)
 
 let chosenQuestion = {};
@@ -31,11 +31,11 @@ let questions = [
     },
     {
         question: " How do you write 'Hello World' in an alert box?",
-        option1: "msgBox('Hello World');",
+        option1: "alert('Hello World');",
         option2: "alertBox('Hello World');",
         option3: "msg('Hello World');",
-        option4: "alert('Hello World');",
-        answer: 4,
+        option4: "msgBox('Hello World');",
+        answer: 1,
     },
 ];
 
@@ -66,7 +66,7 @@ function generateNewQuestion(){
     
     options.forEach(option => {
         // grabs value connected to data-number in html
-        const number = option.dataset['number'];
+        number = option.dataset['number'];
         console.log(number)
     
         // grabs each answer 
@@ -85,32 +85,45 @@ options.forEach(option => {
         if (!acceptingAnswers) return;
         
         acceptingAnswers = false;
-        const selectedScript = selectedAnswer.target; // the answer that the user selected
-        const finalSelectedAnswer = selectedScript.dataset['number']
-        console.log(chosenQuestion.answer) // the actual answer of the question
+        selectedScript = selectedAnswer.target; // the answer that the user selected
+        finalSelectedAnswer = selectedScript.dataset['number']
+        console.log("This is chosenQuestion" + chosenQuestion.answer) // the actual answer of the question
         console.log(finalSelectedAnswer)
 
-        const classToApply = "incorrect"
-        const rightAnswer = "correct";
-        const correctAnswer = chosenQuestion.answer
+        classToApply = "incorrect"
+        rightAnswer = "correct";
+        correctAnswer = chosenQuestion.answer
         if (finalSelectedAnswer == chosenQuestion.answer)
         {
             classToApply = "correct";
         }
-        console.log("This is" + selectedScript.parentElement);
-        // applies the correct container to the specific right answer
+        else
+        {
+            options.forEach(option => {
+                console.log("Options " + option.dataset['number'])
+                // highlights correct answer in green if user answers incorr
+                if(option.dataset['number'] == chosenQuestion.answer){
+                    option.classList.add(rightAnswer)
+                }
+                // provides the correct answer for 1000 miliseconds
+                setTimeout(() => {
+                    option.classList.remove(rightAnswer)
+                }, 1000)
+            })
+        }
+
+        // applies the "correct" or "incorrect" value to the container element
         selectedScript.parentElement.classList.add(classToApply);
-        correctAnswer.classList.add(rightAnswer);
+        console.log("Correct answer " + chosenQuestion.answer)
+        // console.log(selectedScript.parentElement);
+        // console.log("The selectedScript " + selectedScript.parentElement);
+        // console.log(chosenQuestion)
+        // console.log("The chosenQuestion " + chosenQuestion.parentElement);
         // shows if user's answer is correct for 1000 miliseconds then proceeds to next question
         setTimeout(() => {
             selectedScript.parentElement.classList.remove(classToApply);
-            correctAnswer.classList.remove(rightAnswer)
             generateNewQuestion();
         }, 1000)
-        
-        generateNewQuestion();
-    
-        
     })
 })
 startGame();
