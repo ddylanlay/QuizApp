@@ -5,6 +5,10 @@ console.log(question)
 options = Array.from(document.getElementsByClassName("option-text"));
 console.log(options)
 
+questionScoreText = document.getElementById("questionScore");
+actualScoreText = document.getElementById("actualScore");
+
+
 let chosenQuestion = {};
 let acceptingAnswers = false;
 let score = 0;
@@ -57,6 +61,7 @@ function generateNewQuestion(){
         return window.location.assign("/endpage.html");
     }
     questionCounter++;
+    questionScoreText.innerText = questionCounter + "/"  + MAX_QUESTIONS;
     randomQuestionIndex = Math.floor(Math.random() * availableQuestions.length);
     console.log("The index is " + randomQuestionIndex);
     chosenQuestion = availableQuestions[randomQuestionIndex];
@@ -96,12 +101,13 @@ options.forEach(option => {
         if (finalSelectedAnswer == chosenQuestion.answer)
         {
             classToApply = "correct";
+            updateScore(CORRECT_BONUS);
         }
         else
         {
             options.forEach(option => {
                 console.log("Options " + option.dataset['number'])
-                // highlights correct answer in green if user answers incorr
+                // highlights correct answer in green if user's answer is incorrect
                 if(option.dataset['number'] == chosenQuestion.answer){
                     option.classList.add(rightAnswer)
                 }
@@ -126,4 +132,9 @@ options.forEach(option => {
         }, 1000)
     })
 })
+
+updateScore = num => {
+    score += num;
+    actualScoreText.innerText = score;
+}
 startGame();
