@@ -6,6 +6,7 @@ options = Array.from(document.getElementsByClassName("option-text"));
 console.log(options)
 
 questionScoreText = document.getElementById("questionScore");
+progressBarText = document.getElementById("progressBar")
 actualScoreText = document.getElementById("actualScore");
 
 
@@ -21,7 +22,7 @@ let questions = [
         option1: '<scripting>',
         option2: '<javascript>',
         option3: '<js>',
-        option4: '<script>', 
+        option4: '<script>',
         answer: 4,
     },
     {
@@ -57,24 +58,33 @@ function startGame(){
 function generateNewQuestion(){
     if (availableQuestions.length == 0 || questionCounter >= MAX_QUESTIONS)
     {
+
+        progressBarText.style.width = `${((questionCounter-1)/MAX_QUESTIONS) * 100}%`
         // moves the user to the end page once there are no more questions in the bank left
-        return window.location.assign("/endpage.html");
+        // after progress bar completion is shown to the user after 1000 miliseconds
+        setTimeout(() =>{
+        return window.location.assign("/endpage.html")
+        },1000);
     }
-    questionCounter++;
-    questionScoreText.innerText = questionCounter + "/"  + MAX_QUESTIONS;
+
+    if (questionCounter < MAX_QUESTIONS){
+        questionCounter++;
+    }
+    questionScoreText.innerText = "Question " + questionCounter + "/"  + MAX_QUESTIONS;
     randomQuestionIndex = Math.floor(Math.random() * availableQuestions.length);
     console.log("The index is " + randomQuestionIndex);
     chosenQuestion = availableQuestions[randomQuestionIndex];
     console.log(chosenQuestion.question)
     question.innerText = chosenQuestion.question
     console.log(question.innerText)
-    
+    // updates bar each question, closer and closer to 100%
+    progressBarText.style.width = `${((questionCounter-1)/MAX_QUESTIONS) * 100}%`
     options.forEach(option => {
         // grabs value connected to data-number in html
         number = option.dataset['number'];
         console.log(number)
-    
-        // grabs each answer 
+
+        // grabs each answer
         option.innerText = chosenQuestion['option' + number];
 
     })
@@ -88,7 +98,7 @@ function generateNewQuestion(){
 options.forEach(option => {
     option.addEventListener("click", selectedAnswer => {
         if (!acceptingAnswers) return;
-        
+
         acceptingAnswers = false;
         selectedScript = selectedAnswer.target; // the answer that the user selected
         finalSelectedAnswer = selectedScript.dataset['number']
