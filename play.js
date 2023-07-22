@@ -6,7 +6,7 @@ options = Array.from(document.getElementsByClassName("option-text"));
 console.log(options)
 
 questionScoreText = document.getElementById("questionScore");
-progressBarText = document.getElementById("progressBar")
+progressBarText = document.getElementById("progressBarIncrement")
 actualScoreText = document.getElementById("actualScore");
 
 
@@ -59,7 +59,8 @@ function generateNewQuestion(){
     if (availableQuestions.length == 0 || questionCounter >= MAX_QUESTIONS)
     {
 
-        progressBarText.style.width = `${((questionCounter-1)/MAX_QUESTIONS) * 100}%`
+        progressBarText.style.width = `${((questionCounter)/MAX_QUESTIONS) * 100}%`
+        progressBarText = "Last Question!"
         // moves the user to the end page once there are no more questions in the bank left
         // after progress bar completion is shown to the user after 1000 miliseconds
         setTimeout(() =>{
