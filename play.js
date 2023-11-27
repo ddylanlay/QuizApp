@@ -58,7 +58,7 @@ function startGame(){
 function generateNewQuestion(){
     if (availableQuestions.length == 0 || questionCounter >= MAX_QUESTIONS)
     {
-
+        localStorage.setItem("mostRecentScore", score)
         progressBarText.style.width = `${((questionCounter)/MAX_QUESTIONS) * 100}%`
         progressBarText = "Last Question!"
         // moves the user to the end page once there are no more questions in the bank left
