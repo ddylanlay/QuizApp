@@ -18,28 +18,28 @@ let availableQuestions = [];
 
 let questions = [
     {
-        question: 'Inside which HTML element do we put the JavaScript?',
-        option1: '<scripting>',
-        option2: '<javascript>',
-        option3: '<js>',
-        option4: '<script>',
-        answer: 4,
-    },
-    {
-        question:
-            "What is the correct syntax for referring to an external script called 'xxx.js'?",
-        option1: "<script href='xxx.js'>",
-        option2: "<script name='xxx.js'>",
-        option3: "<script src='xxx.js'>",
-        option4: "<script file='xxx.js'>",
+        question: 'What is 9 + 10?',
+        option1: '90',
+        option2: '21',
+        option3: '19',
+        option4: '1',
         answer: 3,
     },
     {
-        question: " How do you write 'Hello World' in an alert box?",
-        option1: "alert('Hello World');",
-        option2: "alertBox('Hello World');",
-        option3: "msg('Hello World');",
-        option4: "msgBox('Hello World');",
+        question:
+            "What is the capital of Australia?",
+        option1: "Melbourne",
+        option2: "Sydney",
+        option3: "Kangaroo",
+        option4: "Canberra",
+        answer: 4,
+    },
+    {
+        question: "Who founded 'Amazon'?",
+        option1: "Jeff Bozos",
+        option2: "Elon Musk",
+        option3: "John Smith",
+        option4: "Bill Gates",
         answer: 1,
     },
 ];
@@ -56,11 +56,10 @@ function startGame(){
 };
 
 function generateNewQuestion(){
-    if (availableQuestions.length == 0 || questionCounter >= MAX_QUESTIONS)
+    if (availableQuestions.length == 0 || questionCounter-1 >= MAX_QUESTIONS)
     {
         localStorage.setItem("mostRecentScore", score)
         progressBarText.style.width = `${((questionCounter)/MAX_QUESTIONS) * 100}%`
-        progressBarText = "Last Question!"
         // moves the user to the end page once there are no more questions in the bank left
         // after progress bar completion is shown to the user after 1000 miliseconds
         setTimeout(() =>{
@@ -79,7 +78,7 @@ function generateNewQuestion(){
     question.innerText = chosenQuestion.question
     console.log(question.innerText)
     // updates bar each question, closer and closer to 100%
-    progressBarText.style.width = `${((questionCounter-1)/MAX_QUESTIONS) * 100}%`
+    progressBarText.style.width = `${((questionCounter)/MAX_QUESTIONS) * 100}%`
     options.forEach(option => {
         // grabs value connected to data-number in html
         number = option.dataset['number'];
