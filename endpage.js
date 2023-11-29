@@ -4,7 +4,7 @@ mostRecentScore = localStorage.getItem("mostRecentScore");
 finalScore = document.getElementById("finalScore");
 finalScore.innerText = mostRecentScore;
 highScores = JSON.parse(localStorage.getItem("highScores")) || [];
-MAX_HIGH_SCORES = 5;
+
 console.log(highScores);
 // provides what key on the keyboard is being pressed
 username.addEventListener("keyup", () => {
@@ -18,7 +18,7 @@ saveHighScore = holder => {
     console.log("clicked saved");
     holder.preventDefault();
     score = {
-        score: MostRecentScore,
+        score: mostRecentScore,
         name: username.value
     };
     highScores.push(score);
