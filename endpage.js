@@ -21,6 +21,16 @@ saveHighScore = holder => {
         score: mostRecentScore,
         name: username.value
     };
+    newScore = {
+        TableName: 'Quizzing',
+        Item: {
+            scoreName: mostRecentScore,
+            score: username.value
+      }
+    }
+    // add to database
+    addItem(newScore)
+    sleep(600);
     highScores.push(score);
     // to arrange highscores accurately
     highScores.sort( (a,b) => {
@@ -32,3 +42,4 @@ saveHighScore = holder => {
     console.log(highScores);
     window.location.assign("/index.html")
 }
+
