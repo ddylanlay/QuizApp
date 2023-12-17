@@ -1,12 +1,7 @@
 AWS.config.update({ region: "ap-southeast-2" });
 
 AWS.config.update({
-    region: "ap-southeast-2",
-    // For security reasons, do not store AWS Credentials in your files. Use Amazon Cognito instead.
-    accessKeyId: "AKIAS7R2EW2TPNGWQWI4",
-    // secretAccessKey default can be used while using the downloadable version of DynamoDB.
-    // For security reasons, do not store AWS Credentials in your files. Use Amazon Cognito instead.
-    secretAccessKey: "/SQE01yALLZym1+pWR3z0xFmMqERES6eJ33VRsEG"
+    region: "ap-southeast-2"
 });
 
 
