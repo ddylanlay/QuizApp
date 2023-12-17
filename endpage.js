@@ -24,8 +24,8 @@ saveHighScore = holder => {
     newScore = {
         TableName: 'Quizzing',
         QuizId: {
-            scoreName: mostRecentScore,
-            score: username.value
+            'scoreName': mostRecentScore,
+            'score': username.value
       }
     }
     // add to database
