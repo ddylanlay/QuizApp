@@ -1,7 +1,9 @@
 AWS.config.update({ region: "ap-southeast-2" });
 
 AWS.config.update({
-    region: "ap-southeast-2"
+    region: "ap-southeast-2",
+    accessKeyId: "AKIAV6RF36LOF7LT6VMF",
+    secretAccessKey: "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"
 });
 
 
