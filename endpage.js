@@ -23,7 +23,7 @@ saveHighScore = holder => {
     };
     newScore = {
         TableName: 'Quizzing',
-        Item: {
+        QuizId: {
             scoreName: mostRecentScore,
             score: username.value
       }
