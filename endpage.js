@@ -30,7 +30,6 @@ saveHighScore = holder => {
     }
     // add to database
     addItem(newScore)
-    sleep(600);
     highScores.push(score);
     // to arrange highscores accurately
     highScores.sort( (a,b) => {
